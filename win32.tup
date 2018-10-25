@@ -9,15 +9,15 @@ REAPACK_FILE := reaper_reapack@(SUFFIX)
 
 VCPKG = vendor/vcpkg/installed/@(VCPKG_TRIPLET)
 
-CXXFLAGS := /nologo /std:c++17 /W3 /WX /wd4996 /EHsc /MT /O2 /Z7 /Zo
+CXXFLAGS := /nologo /std:c++17 /W3 /WX /wd4996 /EHsc /MTd /Od /Z7
 CXXFLAGS += /Ivendor /I$(VCPKG)/include /Ivendor/WDL /Ivendor/WDL/WDL
-CXXFLAGS += /DWDL_NO_DEFINE_MINMAX /DCURL_STATICLIB /DUNICODE /DNDEBUG
+CXXFLAGS += /DWDL_NO_DEFINE_MINMAX /DCURL_STATICLIB /DUNICODE
 CXXFLAGS += /DREAPACK_FILE#\"$(REAPACK_FILE).dll\"
 
 LD := $(WRAP) link
 LDFLAGS := /nologo User32.lib Shell32.lib Gdi32.lib Comdlg32.lib Comctl32.lib
-LDFLAGS += $(VCPKG)/lib/libcurl.lib Ws2_32.lib Crypt32.lib Advapi32.lib
-LDFLAGS += $(VCPKG)/lib/sqlite3.lib $(VCPKG)/lib/zlib.lib
+LDFLAGS += $(VCPKG)/debug/lib/libcurl.lib Ws2_32.lib Crypt32.lib Advapi32.lib
+LDFLAGS += $(VCPKG)/debug/lib/sqlite3.lib $(VCPKG)/debug/lib/zlibd.lib
 LDFLAGS += $(TUP_VARIANTDIR)/src/resource.res
 LDFLAGS += /DEBUG /OPT:REF /PDBALTPATH:%_PDB%
 
